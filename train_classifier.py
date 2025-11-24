@@ -7,8 +7,9 @@ from news_normalizer import NewsNormalizer
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from constant import PORCENTAGEM_ANALISADA 
 
-def load_news_from_csv(csv_path, label, sample_frac=0.2):
+def load_news_from_csv(csv_path, label, sample_frac=PORCENTAGEM_ANALISADA):
     """Carrega apenas uma fração dos dados para maior velocidade"""
     try:
         print(f"📖 Lendo {csv_path}...")
@@ -47,10 +48,10 @@ def main():
 
     print("✅ Arquivos encontrados!")
 
-    # Carregar apenas 20% de cada dataset
+    # Carregar apenas X% de cada dataset
     print("\n📂 Carregando dados...")
-    true_texts, true_labels = load_news_from_csv(true_path, 0, 0.2)
-    fake_texts, fake_labels = load_news_from_csv(fake_path, 1, 0.2)
+    true_texts, true_labels = load_news_from_csv(true_path, 0, PORCENTAGEM_ANALISADA )
+    fake_texts, fake_labels = load_news_from_csv(fake_path, 1, PORCENTAGEM_ANALISADA)
 
     texts = true_texts + fake_texts
     labels = true_labels + fake_labels

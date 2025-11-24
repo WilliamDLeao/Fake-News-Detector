@@ -7,8 +7,9 @@ from itertools import combinations  # ADICIONE ESTA IMPORTACAO
 import os
 import pandas as pd
 import random  # ADICIONE TAMBÉM O RANDOM
+from constant import PORCENTAGEM_ANALISADA 
 
-def load_news_from_csv(csv_path, sample_frac=0.2):
+def load_news_from_csv(csv_path, sample_frac=PORCENTAGEM_ANALISADA):
     """Carrega notícias de um CSV"""
     try:
         print(f"📖 Lendo {csv_path}...")
@@ -47,8 +48,8 @@ def main():
 
     # Carregar dados
     print("\n📂 Carregando notícias...")
-    true_texts, true_filenames, true_labels = load_news_from_csv(true_path, 0.2)
-    fake_texts, fake_filenames, fake_labels = load_news_from_csv(fake_path, 0.2)
+    true_texts, true_filenames, true_labels = load_news_from_csv(true_path, PORCENTAGEM_ANALISADA)
+    fake_texts, fake_filenames, fake_labels = load_news_from_csv(fake_path, PORCENTAGEM_ANALISADA)
 
     texts = true_texts + fake_texts
     filenames = true_filenames + fake_filenames
