@@ -13,8 +13,7 @@ Um sistema para analisar e classificar notícias usando técnicas de fingerprint
 
 1. **NewsNormalizer** - Limpa e normaliza textos
 2. **FingerprintGenerator** - Gera códigos hash para comparação
-3. **nlp_module** - Classifica notícias usando MLP
-4. **GraphExporter** - Cria e exporta grafos de similaridade
+3. **GraphExporter** - Cria e exporta grafos de similaridade
 
 ## Fluxo do Sistema
 
