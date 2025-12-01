@@ -1,160 +1,225 @@
 from fingerprintgenerator import FingerprintGenerator
-from nlp_module import run_nlp
 from news_normalizer import NewsNormalizer
 from graph_exporter import GraphExporter
 from collections import defaultdict
-from itertools import combinations  # ADICIONE ESTA IMPORTACAO
+from itertools import combinations 
 import os
 import pandas as pd
-import random  # ADICIONE TAMBÉM O RANDOM
+import random 
+import time
+import tracemalloc
+import psutil
+import gc
+from constant import PORCENTAGEM_ANALISADA 
 
-def load_news_from_csv(csv_path, sample_frac=0.2):
+def remove_duplicates(texts, filenames, labels, dates):
+    """Remove notícias duplicadas baseadas no conteúdo do texto"""
+    
+    unique_texts = {}
+    duplicates_count = 0
+    
+    for i, text in enumerate(texts):
+        normalized = ' '.join(text.strip().split())
+        
+        if normalized in unique_texts:
+            duplicates_count += 1
+        else:
+            unique_texts[normalized] = filenames[i]
+    
+    if duplicates_count > 0:
+        unique_indices = {}
+        for i, text in enumerate(texts):
+            normalized = ' '.join(text.strip().split())
+            if normalized not in unique_indices:
+                unique_indices[normalized] = i
+        
+        unique_texts_list = [texts[i] for i in unique_indices.values()]
+        unique_filenames = [filenames[i] for i in unique_indices.values()]
+        unique_labels = [labels[i] for i in unique_indices.values()]
+        unique_dates = [dates[i] for i in unique_indices.values()]
+        
+       
+        return unique_texts_list, unique_filenames, unique_labels, unique_dates
+    
+    return texts, filenames, labels, dates
+
+def load_news_from_csv(csv_path, sample_frac=PORCENTAGEM_ANALISADA):
     """Carrega notícias de um CSV"""
     try:
-        print(f"📖 Lendo {csv_path}...")
+        if not os.path.exists(csv_path):
+            return [], [], [], []
+        
         df = pd.read_csv(csv_path)
+        original_size = len(df)
         sampled_df = df.sample(frac=sample_frac, random_state=42)
+        sampled_size = len(sampled_df)
         
         texts = []
         filenames = []
         labels = []
-        for idx, row in sampled_df.iterrows():
-            combined_text = f"{row['title']} {row['text']}"
-            texts.append(combined_text)
-            filenames.append(f"{os.path.basename(csv_path)}_{idx}")
-            labels.append(1 if "Fake" in csv_path else 0)
+        dates = []
         
-        print(f"   ✅ Carregadas {len(texts)} notícias de {csv_path}")
-        return texts, filenames, labels
-    except Exception as e:
-        print(f"⚠️ Erro ao carregar {csv_path}: {e}")
-        return [], [], []
+        error_count = 0
+        for idx, row in sampled_df.iterrows():
+            try:
+                title = str(row['title']) if pd.notna(row.get('title')) else ""
+                text_content = str(row['text']) if pd.notna(row.get('text')) else ""
+                date_value = str(row['date']) if pd.notna(row.get('date')) else ""
+                
+                combined_text = f"{title} {text_content}".strip()
+                
+                if not combined_text or combined_text.isspace():
+                    error_count += 1
+                    continue
+                
+                texts.append(combined_text)
+                filenames.append(f"{os.path.basename(csv_path)}_{idx}")
+                labels.append(1 if "Fake" in csv_path else 0)
+                dates.append(date_value)
+                
+            except Exception:
+                error_count += 1
+                continue
+        
+        return texts, filenames, labels, dates
+        
+    except Exception:
+        return [], [], [], []
 
 def main():
-    true_path = "True.csv"
-    fake_path = "Fake.csv"
-
-    # Verificar se os arquivos existem
-    print("🔍 Verificando arquivos...")
-    if not os.path.exists(true_path):
-        print(f"❌ Arquivo {true_path} não encontrado!")
-        return
-    if not os.path.exists(fake_path):
-        print(f"❌ Arquivo {fake_path} não encontrado!")
-        return
-
-    print("✅ Arquivos encontrados!")
-
-    # Carregar dados
-    print("\n📂 Carregando notícias...")
-    true_texts, true_filenames, true_labels = load_news_from_csv(true_path, 0.2)
-    fake_texts, fake_filenames, fake_labels = load_news_from_csv(fake_path, 0.2)
-
-    texts = true_texts + fake_texts
-    filenames = true_filenames + fake_filenames
-    labels = true_labels + fake_labels
-
-    print(f"\n📊 Total de arquivos carregados: {len(texts)}")
-
-    if len(texts) == 0:
-        print("❌ Nenhuma notícia carregada.")
-        return
-
-    # Normalização
-    print("\n🔄 Normalizando textos...")
-    normalizer = NewsNormalizer()
-    normalized_texts = [normalizer.normalize_news(t) for t in texts]
+    """Função principal"""
+    print("🚀 INICIANDO ANÁLISE DE NOTÍCIAS")
+    start_time = time.time()
+    tracemalloc.start()
     
-    # Gerar fingerprints
-    print("🔑 Gerando fingerprints...")
-    fp_gen = FingerprintGenerator(hash_sizes=[64])
-    fingerprints = [fp_gen.generate_simhash(t, 64) for t in normalized_texts]
-    
-    # --- SEÇÃO OTIMIZADA: CRIAR GRAFOS ---
-    print("\n🕸️ Criando grafo de similaridade (OTIMIZADO)...")
-    graph_exporter = GraphExporter()
-    
-    # Opção 1: K-NN (MAIS RÁPIDA E EFICIENTE) - RECOMENDADA
-    edges_count = graph_exporter.create_similarity_graph_knn(
-        texts=texts,
-        fingerprints=fingerprints,
-        labels=labels,
-        filenames=filenames,
-        k_neighbors=15,  # Conexões por nó
-        threshold=20     # Distância máxima
-    )
-    
-    # Exportar para Gephi
-    nodes_count, edges_count = graph_exporter.export_for_gephi("gephi_news_network")
-    
-    print(f"📊 Estatísticas do Grafo:")
-    print(f"   - Nós (notícias): {nodes_count}")
-    print(f"   - Arestas (similaridades): {edges_count}")
-    if nodes_count > 1:
-        density = edges_count / (nodes_count * (nodes_count - 1) / 2)
-        print(f"   - Densidade: {density:.6f}")
-    else:
-        print(f"   - Densidade: N/A (apenas 1 nó)")
-    
-    # --- FIM DA SEÇÃO DE GRAFOS ---
-    
-    # Cálculo de distâncias (opcional, mas mais leve)
-    print("\n📏 Calculando distâncias de Hamming (amostra)...")
-    sample_size = min(100, len(fingerprints))
-    if len(fingerprints) > 1:
-        # Correção: usar combinations diretamente já que foi importado
-        sample_pairs = random.sample(list(combinations(range(len(fingerprints)), 2)), sample_size)
-        distances = [bin(fingerprints[i] ^ fingerprints[j]).count("1") for i, j in sample_pairs]
-        avg_distance = sum(distances) / len(distances)
-        print(f"   Distância média de Hamming (amostra de {sample_size} pares): {avg_distance:.2f}")
-    else:
-        print("   Não há fingerprints suficientes para calcular distâncias")
+    try:
+        true_path = "True.csv"
+        fake_path = "Fake.csv"
 
-    # Classificação
-    print("\n🔍 Classificando notícias...")
-    nlp_results = [run_nlp(t) for t in texts]
+        # Verificar se os arquivos existem
+        if not os.path.exists(true_path):
+            print(f"❌ Arquivo {true_path} não encontrado!")
+            return
+        if not os.path.exists(fake_path):
+            print(f"❌ Arquivo {fake_path} não encontrado!")
+            return
 
-    # Agrupar resultados por tipo (True/Fake)
-    results_by_type = defaultdict(list)
-    for filename, (pred, conf, used_hamming) in zip(filenames, nlp_results):
-        file_type = "True" if "True" in filename else "Fake"
-        results_by_type[file_type].append((filename, pred, conf, used_hamming))
+        # Carregar dados
+        print("\n📂 Carregando notícias...")
+        load_start = time.time()
+        
+        true_texts, true_filenames, true_labels, true_dates = load_news_from_csv(true_path, PORCENTAGEM_ANALISADA)
+        fake_texts, fake_filenames, fake_labels, fake_dates = load_news_from_csv(fake_path, PORCENTAGEM_ANALISADA)
 
-    # Determinar tamanho máximo do nome do arquivo
-    max_len = max((len(file) for file in filenames), default=0)
+        # Combinar todos os dados
+        all_texts = true_texts + fake_texts
+        all_filenames = true_filenames + fake_filenames
+        all_labels = true_labels + fake_labels
+        all_dates = true_dates + fake_dates
 
-    # Exibir resultados
-    print("\n📊 RESULTADOS DA CLASSIFICAÇÃO:")
-    for file_type, files in results_by_type.items():
-        print(f"\n📂 {file_type} News")
-        for file, pred, conf, used_hamming in files:
-            symbol = "❌" if pred == 1 else "✅"
-            pred_text = "FAKE" if pred == 1 else "TRUE"
-            
-            if used_hamming:
-                print(f"\t📄 {file:<{max_len}} --> {symbol} {pred_text} *H")
-            else:
-                print(f"\t📄 {file:<{max_len}} --> {symbol} {pred_text} (Confiança: {conf:6.2%})")
+        print(f"📊 Total de arquivos carregados: {len(all_texts)}")
 
-    # Estatísticas gerais
-    total_files = len(texts)
-    fake_count = sum(1 for pred, _, _ in nlp_results if pred == 1)
-    true_count = total_files - fake_count
-    
-    print(f"\n📈 ESTATÍSTICAS GERAIS:")
-    print(f"Total de notícias analisadas: {total_files}")
-    print(f"Notícias classificadas como TRUE: {true_count} ({true_count/total_files*100:.2f}%)")
-    print(f"Notícias classificadas como FAKE: {fake_count} ({fake_count/total_files*100:.2f}%)")
+        # REMOVER DUPLICATAS
+        print("\n🧹 Removendo duplicatas...")
+        unique_texts, unique_filenames, unique_labels, unique_dates = remove_duplicates(
+            all_texts, all_filenames, all_labels, all_dates
+        )
 
-    # Verificar acurácia básica
-    correct_predictions = 0
-    for filename, (pred, _, _) in zip(filenames, nlp_results):
-        true_label = 1 if "Fake" in filename else 0
-        if pred == true_label:
-            correct_predictions += 1
-    
-    accuracy = correct_predictions / total_files if total_files > 0 else 0
-    print(f"🎯 Acurácia geral: {accuracy:.2%}")
+        texts = unique_texts
+        filenames = unique_filenames
+        labels = unique_labels
+        dates = unique_dates
+
+        load_time = time.time() - load_start
+        print(f"✅ Dados preparados.")
+
+        if len(texts) == 0:
+            print("❌ Nenhuma notícia carregada.")
+            return
+
+        # Normalização
+        print("\n🔄 Normalizando textos...")
+        normalize_start = time.time()
+        
+        normalizer = NewsNormalizer()
+        normalized_texts = []
+
+        for i, (text, label) in enumerate(zip(texts, labels)):
+            try:
+                is_true_news = (label == 0)
+                normalized_text = normalizer.normalize_news(text, is_true_news)
+                normalized_texts.append(normalized_text)
+            except Exception:
+                normalized_texts.append("")
+        
+        normalize_time = time.time() - normalize_start
+        print(f"✅ Textos normalizados.")
+
+        # Gerar fingerprints
+        print("\n🔑 Gerando fingerprints...")
+        fingerprint_start = time.time()
+        
+        fp_gen = FingerprintGenerator(hash_sizes=[64])
+        fingerprints = []
+        for i, text in enumerate(normalized_texts):
+            try:
+                fingerprint = fp_gen.generate_simhash(text, 64)
+                fingerprints.append(fingerprint)
+            except Exception:
+                fingerprints.append(0)
+        
+        fingerprint_time = time.time() - fingerprint_start
+        print(f"✅ Fingerprints geradas.")
+
+        # --- SEÇÃO DO GRAFO ---
+        print("\n🕸️ Criando grafo de similaridade...")
+        graph_start = time.time()
+        
+        graph_exporter = GraphExporter()
+        
+        edges_count = graph_exporter.create_similarity_graph_knn(
+            texts=texts,
+            fingerprints=fingerprints,
+            labels=labels,
+            filenames=filenames,
+            dates=dates,
+            k_neighbors=15,
+            threshold=20
+        )
+        
+        graph_time = time.time() - graph_start
+
+        # Exportar para Gephi
+        print("💾 Exportando para Gephi...")
+        export_start = time.time()
+        
+        nodes_count, edges_count = graph_exporter.export_for_gephi("gephi_news_network")
+        
+        export_time = time.time() - export_start
+
+        # --- ESTATÍSTICAS FINAIS ---
+        total_time = time.time() - start_time
+        current, peak = tracemalloc.get_traced_memory()
+        
+        print(f"\n🎉 PROCESSAMENTO CONCLUÍDO")
+           
+        total_files = len(texts)
+        fake_count = sum(labels)
+        true_count = total_files - fake_count
+             
+        if nodes_count > 1:
+            density = edges_count / (nodes_count * (nodes_count - 1) / 2)
+        
+        print(f"\n💾 Dados exportados para: gephi_news_network/")
+
+    except Exception as e:
+        print(f"💥 ERRO CRÍTICO no programa principal: {e}")
+        raise
+        
+    finally:
+        tracemalloc.stop()
+        gc.collect()
+        print("✅ Programa finalizado")
 
 if __name__ == "__main__":
     main()

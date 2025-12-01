@@ -50,20 +50,15 @@ class FingerprintGenerator:
             end = time.time()
             exec_time = end - start
 
-            hash_true_bin = bin(hash_true)
-            hash_fake_bin = bin(hash_fake)
-
             print(f"[{bits} bits]")
-            print(f"gerar fingerprint - texto true : {hash_true_bin[:80]}...")
-            print(f"gerar fingerprint - texto fake : {hash_fake_bin[:80]}...")
-            print(f"Distância Hamming  : {distance}")
-            print(f"Tempo de execução  : {exec_time:.4f} segundos\n")
+            print(f"Distância Hamming: {distance}")
+            print(f"Tempo de execução: {exec_time:.4f} segundos\n")
 
-            # Salvar em arquivo separado por projeto
+            # Salvar em arquivo
             safe_name = project_name.replace("/", "_")
             output_path = os.path.join(self.output_dir, f"{safe_name}_fp_{bits}.txt")
             with open(output_path, "w", encoding="utf-8") as f:
-                f.write(f"gerar fingerprint - texto true : {hash_true_bin}\n")
-                f.write(f"gerar fingerprint - texto fake : {hash_fake_bin}\n")
+                f.write(f"gerar fingerprint - texto true : {bin(hash_true)}\n")
+                f.write(f"gerar fingerprint - texto fake : {bin(hash_fake)}\n")
                 f.write(f"Distância Hamming : {distance}\n")
                 f.write(f"Tempo de execução : {exec_time:.4f} segundos\n")

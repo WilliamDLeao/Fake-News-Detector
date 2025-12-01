@@ -1,0 +1,215 @@
+2025-12-01 08:42:08,902 - INFO - 🚀 INICIANDO ANÁLISE DE NOTÍCIAS
+2025-12-01 08:42:08,903 - INFO - 🧠 Início do programa - Memória: 81.77 MB
+2025-12-01 08:42:08,903 - INFO - 🔍 Verificando arquivos...
+2025-12-01 08:42:08,903 - INFO - ✅ Arquivos encontrados!
+2025-12-01 08:42:08,903 - INFO - 
+📂 Carregando notícias...
+2025-12-01 08:42:08,903 - INFO - 📖 Lendo True.csv...
+2025-12-01 08:42:08,903 - INFO -    Tamanho do arquivo: 51.10 MB
+2025-12-01 08:42:09,277 - INFO -    DataFrame carregado: 21417 linhas, 4 colunas
+2025-12-01 08:42:09,277 - INFO -    Colunas disponíveis: ['title', 'text', 'subject', 'date']
+2025-12-01 08:42:09,296 - WARNING - ⚠️ CSV contém 225 textos duplicados originalmente
+2025-12-01 08:42:09,298 - INFO -    Amostra: 1071/21417 (5.0%)
+2025-12-01 08:42:09,385 - INFO -    ✅ Carregadas 1071 notícias de True.csv
+2025-12-01 08:42:09,386 - INFO -    ❌ Erros no processamento: 0
+2025-12-01 08:42:09,400 - INFO - 📖 Lendo Fake.csv...
+2025-12-01 08:42:09,400 - INFO -    Tamanho do arquivo: 59.88 MB
+2025-12-01 08:42:09,740 - INFO -    DataFrame carregado: 23481 linhas, 4 colunas
+2025-12-01 08:42:09,740 - INFO -    Colunas disponíveis: ['title', 'text', 'subject', 'date']
+2025-12-01 08:42:09,751 - WARNING - ⚠️ CSV contém 6026 textos duplicados originalmente
+2025-12-01 08:42:09,754 - INFO -    Amostra: 1174/23481 (5.0%)
+2025-12-01 08:42:09,832 - INFO -    ✅ Carregadas 1174 notícias de Fake.csv
+2025-12-01 08:42:09,832 - INFO -    ❌ Erros no processamento: 0
+2025-12-01 08:42:09,843 - INFO - 📊 Total de arquivos carregados: 2245
+2025-12-01 08:42:09,844 - INFO -    - Notícias TRUE: 1071
+2025-12-01 08:42:09,844 - INFO -    - Notícias FAKE: 1174
+2025-12-01 08:42:09,844 - INFO - 
+🧹 Removendo duplicatas...
+2025-12-01 08:42:09,844 - INFO - 🔍 Verificando duplicatas...
+2025-12-01 08:42:10,168 - INFO - 🚫 Encontradas 12 notícias duplicadas
+2025-12-01 08:42:10,680 - INFO - 🧠 Final do programa - Memória: 171.21 MB
+2025-12-01 08:42:10,680 - INFO - ✅ Programa finalizado
+2025-12-01 08:47:32,226 - INFO - 🚀 INICIANDO ANÁLISE DE NOTÍCIAS
+2025-12-01 08:47:32,226 - INFO - 🧠 Início do programa - Memória: 81.63 MB
+2025-12-01 08:47:32,226 - INFO - 🔍 Verificando arquivos...
+2025-12-01 08:47:32,227 - INFO - ✅ Arquivos encontrados!
+2025-12-01 08:47:32,227 - INFO - 
+📂 Carregando notícias...
+2025-12-01 08:47:32,227 - INFO - 📖 Lendo True.csv...
+2025-12-01 08:47:32,227 - INFO -    Tamanho do arquivo: 51.10 MB
+2025-12-01 08:47:32,592 - INFO -    DataFrame carregado: 21417 linhas, 4 colunas
+2025-12-01 08:47:32,592 - INFO -    Colunas disponíveis: ['title', 'text', 'subject', 'date']
+2025-12-01 08:47:32,612 - WARNING - ⚠️ CSV contém 225 textos duplicados originalmente
+2025-12-01 08:47:32,614 - INFO -    Amostra: 43/21417 (0.2%)
+2025-12-01 08:47:32,617 - INFO -    ✅ Carregadas 43 notícias de True.csv
+2025-12-01 08:47:32,617 - INFO -    ❌ Erros no processamento: 0
+2025-12-01 08:47:32,627 - INFO - 📖 Lendo Fake.csv...
+2025-12-01 08:47:32,627 - INFO -    Tamanho do arquivo: 59.88 MB
+2025-12-01 08:47:32,966 - INFO -    DataFrame carregado: 23481 linhas, 4 colunas
+2025-12-01 08:47:32,966 - INFO -    Colunas disponíveis: ['title', 'text', 'subject', 'date']
+2025-12-01 08:47:32,977 - WARNING - ⚠️ CSV contém 6026 textos duplicados originalmente
+2025-12-01 08:47:32,980 - INFO -    Amostra: 47/23481 (0.2%)
+2025-12-01 08:47:32,984 - INFO -    ✅ Carregadas 47 notícias de Fake.csv
+2025-12-01 08:47:32,984 - INFO -    ❌ Erros no processamento: 0
+2025-12-01 08:47:32,993 - INFO - 📊 Total de arquivos carregados: 90
+2025-12-01 08:47:32,993 - INFO -    - Notícias TRUE: 43
+2025-12-01 08:47:32,994 - INFO -    - Notícias FAKE: 47
+2025-12-01 08:47:32,994 - INFO - 
+🧹 Removendo duplicatas...
+2025-12-01 08:47:32,994 - INFO - 🔍 Verificando duplicatas...
+2025-12-01 08:47:33,012 - INFO - ✅ Nenhuma duplicata encontrada
+2025-12-01 08:47:33,013 - INFO - ✅ Dados únicos preparados em 0.79s
+2025-12-01 08:47:33,013 - INFO - 📈 Estatísticas após remoção de duplicatas:
+2025-12-01 08:47:33,013 - INFO -    - Total original: 90
+2025-12-01 08:47:33,013 - INFO -    - Total único: 90
+2025-12-01 08:47:33,013 - INFO -    - Duplicatas removidas: 0
+2025-12-01 08:47:33,013 - INFO - 🧠 Após carregar e limpar dados - Memória: 148.52 MB
+2025-12-01 08:47:33,013 - INFO - 
+🔄 Normalizando textos...
+2025-12-01 08:47:33,176 - INFO - ✅ Textos normalizados em 0.16s
+2025-12-01 08:47:33,177 - INFO - 🧠 Após normalização - Memória: 148.52 MB
+2025-12-01 08:47:33,177 - INFO - 🔑 Gerando fingerprints...
+2025-12-01 08:47:47,969 - INFO - ✅ Fingerprints geradas em 14.79s
+2025-12-01 08:47:47,970 - INFO - 🧠 Após gerar fingerprints - Memória: 148.52 MB
+2025-12-01 08:47:47,970 - INFO - 
+🕸️ Criando grafo de similaridade...
+2025-12-01 08:47:47,970 - INFO - 🚀 INICIANDO create_similarity_graph_knn
+2025-12-01 08:47:47,970 - INFO - 🔍 Validando dados de entrada...
+2025-12-01 08:47:47,970 - INFO - ✅ Validação de dados concluída
+2025-12-01 08:47:47,970 - INFO - 🆕 Adicionando nós...
+2025-12-01 08:47:47,971 - INFO - 🔍 Calculando vizinhos K-NN...
+2025-12-01 08:47:48,000 - INFO - ✅ K-NN CONCLUÍDO
+2025-12-01 08:47:48,020 - INFO - ✅ Grafo criado em 0.05s
+2025-12-01 08:47:48,021 - INFO - 🧠 Após criar grafo - Memória: 148.54 MB
+2025-12-01 08:47:48,021 - INFO - 💾 Exportando para Gephi...
+2025-12-01 08:47:48,021 - INFO - 💾 Exportando dados para Gephi em gephi_news_network
+2025-12-01 08:47:48,021 - INFO - 📝 Exportando nós...
+2025-12-01 08:47:48,052 - INFO - ✅ Nós exportados: 90
+2025-12-01 08:47:48,053 - INFO - 📝 Exportando arestas...
+2025-12-01 08:47:48,058 - INFO - ✅ Arestas exportadas: 1017
+2025-12-01 08:47:48,059 - INFO - ✅ EXPORTAÇÃO CONCLUÍDA em 0.04s
+2025-12-01 08:47:48,060 - INFO - ✅ Exportação concluída em 0.04s
+2025-12-01 08:47:48,060 - INFO - 
+🎉 PROCESSAMENTO CONCLUÍDO
+2025-12-01 08:47:48,060 - INFO - 📊 ESTATÍSTICAS GERAIS:
+2025-12-01 08:47:48,060 - INFO -    Tempo total: 15.83s
+2025-12-01 08:47:48,060 - INFO -    Memória pico: 0.00 MB
+2025-12-01 08:47:48,060 - INFO -    Notícias analisadas: 90
+2025-12-01 08:47:48,060 - INFO -    Notícias TRUE: 43 (47.78%)
+2025-12-01 08:47:48,060 - INFO -    Notícias FAKE: 47 (52.22%)
+2025-12-01 08:47:48,060 - INFO -    Nós no grafo: 90
+2025-12-01 08:47:48,060 - INFO -    Arestas no grafo: 1017
+2025-12-01 08:47:48,060 - INFO -    Densidade do grafo: 0.253933
+2025-12-01 08:47:48,060 - INFO - 
+⏱️ TEMPOS DAS ETAPAS:
+2025-12-01 08:47:48,060 - INFO -    Carregamento: 0.79s
+2025-12-01 08:47:48,060 - INFO -    Normalização: 0.16s
+2025-12-01 08:47:48,060 - INFO -    Fingerprints: 14.79s
+2025-12-01 08:47:48,060 - INFO -    Criação do grafo: 0.05s
+2025-12-01 08:47:48,060 - INFO -    Exportação: 0.04s
+2025-12-01 08:47:48,061 - INFO - 
+💾 Dados exportados para: gephi_news_network/
+2025-12-01 08:47:48,061 - INFO - 📋 Logs salvos em: news_analysis_debug.log
+2025-12-01 08:47:48,091 - INFO - 🧠 Final do programa - Memória: 148.95 MB
+2025-12-01 08:47:48,091 - INFO - ✅ Programa finalizado
+2025-12-01 08:52:04,478 - INFO - 🚀 INICIANDO ANÁLISE DE NOTÍCIAS
+2025-12-01 08:52:04,479 - INFO - 🧠 Início do programa - Memória: 81.70 MB
+2025-12-01 08:52:04,479 - INFO - 🔍 Verificando arquivos...
+2025-12-01 08:52:04,479 - INFO - ✅ Arquivos encontrados!
+2025-12-01 08:52:04,479 - INFO - 
+📂 Carregando notícias...
+2025-12-01 08:52:04,479 - INFO - 📖 Lendo True.csv...
+2025-12-01 08:52:04,479 - INFO -    Tamanho do arquivo: 51.10 MB
+2025-12-01 08:52:04,859 - INFO -    DataFrame carregado: 21417 linhas, 4 colunas
+2025-12-01 08:52:04,859 - INFO -    Colunas disponíveis: ['title', 'text', 'subject', 'date']
+2025-12-01 08:52:04,879 - WARNING - ⚠️ CSV contém 225 textos duplicados originalmente
+2025-12-01 08:52:04,882 - INFO -    Amostra: 43/21417 (0.2%)
+2025-12-01 08:52:04,885 - INFO -    ✅ Carregadas 43 notícias de True.csv
+2025-12-01 08:52:04,885 - INFO -    ❌ Erros no processamento: 0
+2025-12-01 08:52:04,896 - INFO - 📖 Lendo Fake.csv...
+2025-12-01 08:52:04,896 - INFO -    Tamanho do arquivo: 59.88 MB
+2025-12-01 08:52:05,248 - INFO -    DataFrame carregado: 23481 linhas, 4 colunas
+2025-12-01 08:52:05,249 - INFO -    Colunas disponíveis: ['title', 'text', 'subject', 'date']
+2025-12-01 08:52:05,259 - WARNING - ⚠️ CSV contém 6026 textos duplicados originalmente
+2025-12-01 08:52:05,262 - INFO -    Amostra: 47/23481 (0.2%)
+2025-12-01 08:52:05,267 - INFO -    ✅ Carregadas 47 notícias de Fake.csv
+2025-12-01 08:52:05,267 - INFO -    ❌ Erros no processamento: 0
+2025-12-01 08:52:05,281 - INFO - 📊 Total de arquivos carregados: 90
+2025-12-01 08:52:05,281 - INFO -    - Notícias TRUE: 43
+2025-12-01 08:52:05,281 - INFO -    - Notícias FAKE: 47
+2025-12-01 08:52:05,281 - INFO - 
+🧹 Removendo duplicatas...
+2025-12-01 08:52:05,281 - INFO - 🔍 Verificando duplicatas...
+2025-12-01 08:52:05,304 - INFO - ✅ Nenhuma duplicata encontrada
+2025-12-01 08:52:05,304 - INFO - ✅ Dados únicos preparados em 0.83s
+2025-12-01 08:52:05,304 - INFO - 📈 Estatísticas após remoção de duplicatas:
+2025-12-01 08:52:05,304 - INFO -    - Total original: 90
+2025-12-01 08:52:05,304 - INFO -    - Total único: 90
+2025-12-01 08:52:05,304 - INFO -    - Duplicatas removidas: 0
+2025-12-01 08:52:05,304 - INFO - 🧠 Após carregar e limpar dados - Memória: 148.60 MB
+2025-12-01 08:52:05,305 - INFO - 
+🔄 Normalizando textos...
+2025-12-01 08:52:05,480 - INFO - ✅ Textos normalizados em 0.18s
+2025-12-01 08:52:05,480 - INFO - 🧠 Após normalização - Memória: 148.60 MB
+2025-12-01 08:52:05,481 - INFO - 🔑 Gerando fingerprints...
+2025-12-01 08:54:06,014 - INFO - 🚀 INICIANDO ANÁLISE DE NOTÍCIAS
+2025-12-01 08:54:06,014 - INFO - 🧠 Início do programa - Memória: 81.54 MB
+2025-12-01 08:54:06,014 - INFO - 🔍 Verificando arquivos...
+2025-12-01 08:54:06,014 - INFO - ✅ Arquivos encontrados!
+2025-12-01 08:54:06,014 - INFO - 
+📂 Carregando notícias...
+2025-12-01 08:54:06,014 - INFO - 📖 Lendo True.csv...
+2025-12-01 08:54:06,015 - INFO -    Tamanho do arquivo: 51.10 MB
+2025-12-01 08:54:06,391 - INFO -    DataFrame carregado: 21417 linhas, 4 colunas
+2025-12-01 08:54:06,391 - INFO -    Colunas disponíveis: ['title', 'text', 'subject', 'date']
+2025-12-01 08:54:06,410 - WARNING - ⚠️ CSV contém 225 textos duplicados originalmente
+2025-12-01 08:54:06,412 - INFO -    Amostra: 43/21417 (0.2%)
+2025-12-01 08:54:06,415 - INFO -    ✅ Carregadas 43 notícias de True.csv
+2025-12-01 08:54:06,416 - INFO -    ❌ Erros no processamento: 0
+2025-12-01 08:54:06,425 - INFO - 📖 Lendo Fake.csv...
+2025-12-01 08:54:06,425 - INFO -    Tamanho do arquivo: 59.88 MB
+2025-12-01 08:54:06,765 - INFO -    DataFrame carregado: 23481 linhas, 4 colunas
+2025-12-01 08:54:06,765 - INFO -    Colunas disponíveis: ['title', 'text', 'subject', 'date']
+2025-12-01 08:54:06,778 - WARNING - ⚠️ CSV contém 6026 textos duplicados originalmente
+2025-12-01 08:54:06,780 - INFO -    Amostra: 47/23481 (0.2%)
+2025-12-01 08:54:06,785 - INFO -    ✅ Carregadas 47 notícias de Fake.csv
+2025-12-01 08:54:06,785 - INFO -    ❌ Erros no processamento: 0
+2025-12-01 08:54:06,799 - INFO - 📊 Total de arquivos carregados: 90
+2025-12-01 08:54:06,799 - INFO -    - Notícias TRUE: 43
+2025-12-01 08:54:06,799 - INFO -    - Notícias FAKE: 47
+2025-12-01 08:54:06,799 - INFO - 
+🧹 Removendo duplicatas...
+2025-12-01 08:54:06,799 - INFO - 🔍 Verificando duplicatas...
+2025-12-01 08:54:06,816 - INFO - ✅ Dados únicos preparados em 0.80s
+2025-12-01 08:54:06,816 - INFO - 📈 Estatísticas após remoção de duplicatas:
+2025-12-01 08:54:06,816 - INFO -    - Total original: 90
+2025-12-01 08:54:06,816 - INFO -    - Total único: 90
+2025-12-01 08:54:06,816 - INFO -    - Duplicatas removidas: 0
+2025-12-01 08:54:06,816 - INFO - 🧠 Após carregar e limpar dados - Memória: 148.45 MB
+2025-12-01 08:54:06,817 - INFO - 
+🔄 Normalizando textos...
+2025-12-01 08:54:06,985 - INFO - ✅ Textos normalizados em 0.17s
+2025-12-01 08:54:06,985 - INFO - 🧠 Após normalização - Memória: 148.45 MB
+2025-12-01 08:54:06,985 - INFO - 🔑 Gerando fingerprints...
+2025-12-01 08:54:22,937 - INFO - ✅ Fingerprints geradas em 15.95s
+2025-12-01 08:54:22,938 - INFO - 🧠 Após gerar fingerprints - Memória: 148.45 MB
+2025-12-01 08:54:22,938 - INFO - 
+🕸️ Criando grafo de similaridade...
+2025-12-01 08:54:22,938 - INFO - 🚀 INICIANDO create_similarity_graph_knn
+2025-12-01 08:54:22,938 - INFO - 🔍 Validando dados de entrada...
+2025-12-01 08:54:22,938 - INFO - ✅ Validação de dados concluída
+2025-12-01 08:54:22,938 - INFO - 🆕 Adicionando nós...
+2025-12-01 08:54:22,939 - INFO - 🔍 Calculando vizinhos K-NN...
+2025-12-01 08:54:22,972 - INFO - ✅ K-NN CONCLUÍDO
+2025-12-01 08:54:22,987 - INFO - ✅ Grafo criado em 0.05s
+2025-12-01 08:54:22,988 - INFO - 💾 Exportando para Gephi...
+2025-12-01 08:54:22,988 - INFO - 💾 Exportando dados para Gephi em gephi_news_network
+2025-12-01 08:54:22,988 - INFO - 📝 Exportando nós...
+2025-12-01 08:54:22,990 - INFO - ✅ Nós exportados: 90
+2025-12-01 08:54:22,990 - INFO - 📝 Exportando arestas...
+2025-12-01 08:54:22,995 - INFO - ✅ Arestas exportadas: 1017
+2025-12-01 08:54:22,996 - INFO - ✅ EXPORTAÇÃO CONCLUÍDA em 0.01s
+2025-12-01 08:54:22,997 - INFO - ✅ Exportação concluída em 0.01s
+2025-12-01 08:54:22,997 - INFO - 
+🎉 PROCESSAMENTO CONCLUÍDO
+2025-12-01 08:54:22,997 - INFO -    Densidade do grafo: 0.253933
