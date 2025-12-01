@@ -1,12 +1,11 @@
-# Sistema de Detecção de Notícias Falsas
+# Sistema de Fingerprint de Notícias e Exportação em Grafos
 
-Um sistema para analisar e classificar notícias usando técnicas de fingerprint (SimHash) e machine learning para identificar notícias falsas.
+Um sistema para analisar e classificar notícias usando técnicas de fingerprint e grafos.
 
 ## Funcionalidades
 
 - **Normalização de Textos**: Limpeza e preparação de textos
 - **Geração de Fingerprints**: Cria códigos únicos para cada texto usando SimHash
-- **Classificação Automática**: Rede neural para classificar notícias
 - **Análise de Similaridade**: Cria grafos para visualizar relações entre notícias
 - **Exportação para Gephi**: Gera arquivos para análise em software de redes
 
@@ -14,13 +13,12 @@ Um sistema para analisar e classificar notícias usando técnicas de fingerprint
 
 1. **NewsNormalizer** - Limpa e normaliza textos
 2. **FingerprintGenerator** - Gera códigos hash para comparação
-3. **nlp_module** - Classifica notícias usando MLP
-4. **GraphExporter** - Cria e exporta grafos de similaridade
+3. **GraphExporter** - Cria e exporta grafos de similaridade
 
 ## Fluxo do Sistema
 
 ```
-Texto Original → Normalização → SimHash → Classificação → Análise de Similaridade
+Texto Original → Normalização → SimHash → Grafo
 ```
 
 ## Pré-requisitos
@@ -43,13 +41,7 @@ Coloque os arquivos CSV na pasta principal:
 - `True.csv` - Notícias verdadeiras
 - `Fake.csv` - Notícias falsas
 
-### 2. Treinar o Modelo
-
-```bash
-python train_classifier.py
-```
-
-### 3. Executar a Análise
+### 2. Executar 
 
 ```bash
 python main.py
@@ -60,15 +52,10 @@ python main.py
 ```
 .
 ├── main.py                 # Programa principal
-├── train_classifier.py     # Treina o modelo MLP
 ├── fingerprintgenerator.py # Gera fingerprints
 ├── news_normalizer.py      # Normaliza textos
 ├── graph_exporter.py       # Trabalha com grafos
-├── nlp_module.py          # Classificação NLP
 ├── constant.py            # Configurações
-├── trained_classifier.pkl # Modelo treinado (gerado automaticamente)
-└── outputs/
-    └── fingerprints/      # Fingerprints gerados
 ```
 
 ## Configurações
@@ -101,11 +88,6 @@ hash_sizes = [64, 128]  # Tamanhos de hash suportados
 - Nós (notícias) e arestas (similaridades)
 - Estatísticas de conexão
 
-### 3. Relatórios de Classificação
-- Resultados por tipo de notícia
-- Métricas de acurácia
-- Fallbacks para casos difíceis
-
 ## Algoritmos Usados
 
 ### SimHash
@@ -116,11 +98,6 @@ hash_sizes = [64, 128]  # Tamanhos de hash suportados
 ### Distância de Hamming
 - Compara diferenças bit a bit entre fingerprints
 - Limite configurável para similaridade
-
-### MLP Classifier
-- Rede neural: 128 → 64 → 1
-- Ativação ReLU, otimizador Adam
-- Para se confiança baixa, usa fallback com centróides
 
 ## Métricas do Sistema
 
